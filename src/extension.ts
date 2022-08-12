@@ -1,26 +1,25 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
+/*
+ * @Description: 入口
+ * @Author: 郑泳健
+ * @Date: 2022-08-11 09:51:31
+ * @LastEditors: 郑泳健
+ * @LastEditTime: 2022-08-12 16:41:49
+ */
 import * as vscode from 'vscode';
+import { Tree } from './tree';
+import { createService } from './utils/index';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "td-vite" is now active!');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('td-vite.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from td-vite!');
+	const tree = new Tree();
+
+	// 注册点击左侧图表展开树目录的命令
+	vscode.window.registerTreeDataProvider("sidebar_vite_operation", tree);
+
+	// 注册树节点的命令
+	vscode.commands.registerCommand("sidebar_vite_operation.click", args => {
+		createService(args);
 	});
-
-	context.subscriptions.push(disposable);
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }

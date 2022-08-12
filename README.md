@@ -1,6 +1,6 @@
-# td-vite README
+# td-vite-vscode README
 
-This is the README for your extension "td-vite". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "td-vite-vscode". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
