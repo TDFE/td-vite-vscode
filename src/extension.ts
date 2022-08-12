@@ -3,7 +3,7 @@
  * @Author: 郑泳健
  * @Date: 2022-08-11 09:51:31
  * @LastEditors: 郑泳健
- * @LastEditTime: 2022-08-12 16:41:49
+ * @LastEditTime: 2022-08-12 17:24:18
  */
 import * as vscode from 'vscode';
 import { Tree } from './tree';
@@ -18,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// 注册树节点的命令
 	vscode.commands.registerCommand("sidebar_vite_operation.click", args => {
-		createService(args);
+		createService(args, context);
 	});
 }
 

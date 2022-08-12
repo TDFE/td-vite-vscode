@@ -1,8 +1,9 @@
 {
     "name": "td-vite-vscode",
     "displayName": "td-vite-vscode",
-    "description": "",
+    "description": "同盾vite vscode插件",
     "version": "0.0.1",
+    "publisher": "zyj",
     "engines": {
         "vscode": "^1.70.0"
     },
@@ -59,6 +60,7 @@
         "@vitejs/plugin-legacy": "2.0.0",
         "@vitejs/plugin-react": "2.0.0",
         "babel-plugin-import": "^1.13.3",
+        "lodash": "^4.17.21",
         "postcss-modules": "4.3.1",
         "vite": "3.0.3",
         "vite-plugin-imp": "2.2.0",

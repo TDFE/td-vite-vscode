@@ -8,13 +8,25 @@ import { viteCommonjs, esbuildCommonjs } from '@originjs/vite-plugin-commonjs';
 import vitePluginImp from 'vite-plugin-imp';
 import legacy from '@vitejs/plugin-legacy';
 import { tdViteTransformReact } from 'vite-plugin-tongdun-transform';
+import { merge } from 'lodash';
 const inject = require('@rollup/plugin-inject');
 
 const urlPath = vscode.workspace.workspaceFolders?.[0].uri.path;
-const buildPath = path.resolve(urlPath, './build/config.js');
-const config = require(buildPath);
+// 读取webpack的配置
+const buildConfig = require(path.resolve(urlPath, './build/config.js'));
 
-const { proxyTable, port } = config.dev || {};
+// 自定义配置
+let customSet = {};
+try {
+    customSet = require(path.resolve(urlPath, './vite.config.js'));
+} catch (e) {
+
+}
+
+const { html, entry, ...customSetRest } = customSet;
+
+
+const { proxyTable, port } = buildConfig.dev || {};
 
 let proxy = {};
 
@@ -45,7 +57,7 @@ const toUpper = function (str) {
 
 
 // https://vitejs.dev/config/
-export default defineConfig({
+const defaultSet = {
     plugins: [
         legacy({
             targets: ['defaults', 'not IE 11']
@@ -55,8 +67,8 @@ export default defineConfig({
             React: 'react'
         }),
         tdViteTransformReact({
-            htmlPath: './src/index.html', // html的地址
-            entriesPath: '/src/app.js' // 入口js文件
+            htmlPath: html || './src/index.html', // html的地址
+            entriesPath: entry || '/src/app.js' // 入口js文件
         }),
         react({
             jsxRuntime: 'classic',
@@ -160,4 +172,8 @@ export default defineConfig({
         cors: true,
         proxy
     }
+};
+
+export default defineConfig({
+    ...merge(defaultSet, customSetRest)
 });
